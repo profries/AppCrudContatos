@@ -4,10 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.example.iossenac.appcrudcontatos.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="28dp"
+            android:clickable="true"
+            android:tint="?android:attr/colorForeground"
+            app:elevation="8dp"
+            app:layout_anchorGravity="bottom|center"
+            android:onClick="abrirFormulario"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
+    </RelativeLayout>
+
 </android.support.design.widget.CoordinatorLayout>

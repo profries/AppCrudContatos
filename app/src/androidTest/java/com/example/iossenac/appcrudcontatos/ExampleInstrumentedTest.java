@@ -1,4 +1,4 @@
-package com.example.iossenac.apprecycleviewcontatos;
+package com.example.iossenac.appcrudcontatos;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

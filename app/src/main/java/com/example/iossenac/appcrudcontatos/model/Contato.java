@@ -1,6 +1,8 @@
-package com.example.iossenac.apprecycleviewcontatos.model;
+package com.example.iossenac.appcrudcontatos.model;
 
-public class Contato {
+import java.io.Serializable;
+
+public class Contato implements Serializable{
     private int imagemR;
     private String nome, telefone;
 

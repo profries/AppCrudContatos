@@ -1,5 +1,6 @@
-        package com.example.iossenac.apprecycleviewcontatos.adapter;
+        package com.example.iossenac.appcrudcontatos.adapter;
 
+        import android.content.Context;
         import android.support.v7.widget.RecyclerView;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -8,8 +9,8 @@
         import android.widget.TextView;
         import android.widget.Toast;
 
-        import com.example.iossenac.apprecycleviewcontatos.R;
-        import com.example.iossenac.apprecycleviewcontatos.model.Contato;
+        import com.example.iossenac.appcrudcontatos.model.Contato;
+        import com.example.iossenac.appcrudcontatos.R;
 
         import java.util.List;
 
@@ -17,9 +18,13 @@
         {
 
             private List<Contato> listaContatos;
+            private Context contexto;
+            private ContatoOnClickListener contatoOnClickListener;
 
-            public ContatoAdapter(List<Contato> listaContatos) {
+            public ContatoAdapter(Context contexto, List<Contato> listaContatos, ContatoOnClickListener contatoOnClickListener) {
+                this.contexto = contexto;
                 this.listaContatos = listaContatos;
+                this.contatoOnClickListener = contatoOnClickListener;
             }
 
             @Override
@@ -32,7 +37,7 @@
             }
 
             @Override
-            public void onBindViewHolder(ContatoAdapter.ViewHolder holder, final int position) {
+            public void onBindViewHolder(final ContatoAdapter.ViewHolder holder, final int position) {
                     holder.imagePessoa.setImageResource(listaContatos.get(position).getImagemR());
                     holder.textNome.setText(listaContatos.get(position).getNome());
                     holder.textTelefone.setText(listaContatos.get(position).getTelefone());
@@ -41,9 +46,7 @@
 
                         @Override
                         public void onClick(View v) {
-                                    Toast.makeText(v.getContext(),
-                                        listaContatos.get(position).getNome()+" selecionado",
-                                    Toast.LENGTH_SHORT).show();
+                                    contatoOnClickListener.onClickContato(holder.itemView, position);
                                 }
                             });
 
@@ -66,6 +69,10 @@
                         this.textTelefone = view.findViewById(R.id.textTelefone);
 
                 }
+            }
+
+            public interface ContatoOnClickListener{
+                public void onClickContato (View view, int pos);
             }
 
         }
