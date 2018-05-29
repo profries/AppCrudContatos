@@ -3,9 +3,11 @@ package com.example.iossenac.appcrudcontatos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.iossenac.appcrudcontatos.R;
 import com.example.iossenac.appcrudcontatos.adapter.ContatoAdapter;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements ContatoAdapter.Co
     List<Contato> listaContatos;
     RecyclerView recyclerView;
     ContatoAdapter contatoAdapter;
+    int posicaoAlterar=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements ContatoAdapter.Co
 
         contatoAdapter = new ContatoAdapter(getBaseContext(),listaContatos,this);
         recyclerView.setAdapter(contatoAdapter);
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
     }
 
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements ContatoAdapter.Co
     @Override
     public void onClickContato(View view, int pos) {
         Intent it = new Intent(this, DetalheActivity.class);
+        MainActivity.this.posicaoAlterar = pos;
         Contato contato = listaContatos.get(pos);
         it.putExtra("contato",contato);
         startActivityForResult(it,REQ_DETALHE);
@@ -65,6 +71,32 @@ public class MainActivity extends AppCompatActivity implements ContatoAdapter.Co
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQ_CADASTRO)
+        {
+            if(resultCode == RESULT_OK){
+                Contato contato = (Contato) data.getSerializableExtra("contato");
+                listaContatos.add(contato);
+                contatoAdapter.notifyDataSetChanged();
+                Toast.makeText(this,"Cadastro realizada com sucesso!",Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+        else if(requestCode == REQ_DETALHE){
+            if(resultCode == DetalheActivity.RESULT_EDIT){
+                Contato contato = (Contato) data.getSerializableExtra("contato");
+                listaContatos.set(this.posicaoAlterar,
+                        contato);
+                contatoAdapter.notifyDataSetChanged();
+                Toast.makeText(this,"Edicao realizada com sucesso!",Toast.LENGTH_SHORT)
+                        .show();
+            }
+            else if(resultCode == DetalheActivity.RESULT_DELETE){
+                listaContatos.remove(this.posicaoAlterar);
+                contatoAdapter.notifyDataSetChanged();
+                Toast.makeText(this,"Exclusao realizada com sucesso!",Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
     }
+
 }

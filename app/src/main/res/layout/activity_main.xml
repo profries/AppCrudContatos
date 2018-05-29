@@ -6,30 +6,35 @@
     android:layout_height="match_parent"
     tools:context="com.example.iossenac.appcrudcontatos.MainActivity">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="28dp"
-            android:layout_marginEnd="28dp"
-            android:clickable="true"
-            android:tint="?android:attr/colorForeground"
-            app:elevation="8dp"
-            app:layout_anchorGravity="bottom|center"
-            android:onClick="abrirFormulario"
-            app:srcCompat="@android:drawable/ic_input_add" />
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:visibility="visible">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-             />
-    </RelativeLayout>
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:scrollbars="vertical" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="28dp"
+            android:clickable="true"
+            android:onClick="abrirFormulario"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@android:color/background_light"
+            app:backgroundTint="?attr/colorPrimary"
+            app:elevation="8dp" />
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
